@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button onclick="Products(false,'iphone');" class="btn btn-default" id="iphoneMinusBtn"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="iphoneValue" value="0">
+                           <button onclick="Products(true,'iphone');" class="btn btn-default" id="iphonePlusBtn"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="iphonePrice">0</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,11 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
-
+                           <button onclick="Products(false,'case')" id="caseMinusBtn" class="btn btn-default" ><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="caseValue" value="0">
+                           <button onclick="Products(true,'case')" id="casePlusBtn" class="btn btn-default" ><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="casePrice">0</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +63,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="total">0</span></h5>
+                        <h5>$ <span id="totalText">0</span></h5>
+                        <h5>$ <span id="grandTotal">0</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +76,116 @@
          </div>
       </div>
    </section>
+   <script>
+      // // iphoneMinusBtn even hendlar
+      // const decrement = document.getElementById("iphoneMinusBtn");
+      // decrement.addEventListener("click",function(){
+      //    ProductIphone(false);
+      // });
+
+      // // iphonePlusBtn even hendlar
+      // const increment = document.getElementById("iphonePlusBtn");
+      // increment.addEventListener("click", function(){
+      //    ProductIphone(true);
+      // });
+      // iphoneMinusBtn even hendlar
+      // const decrement = document.getElementById("iphoneMinusBtn");
+      // decrement.addEventListener("click",function(){
+      //    const productDecrement = document.getElementById("iphoneValue");
+      //    const productDecrementCount = parseInt(productDecrement.value);
+      //    const productNewDecrementCount = productDecrementCount - 1;
+      //    productDecrement.value = productNewDecrementCount;
+      //    const productPricedecrement = productNewDecrementCount * 1200;
+      //    document.getElementById("iphonePrice").innerText = productPricedecrement;
+      // });
+
+      // // iphonePlusBtn even hendlar
+      // const increment = document.getElementById("iphonePlusBtn");
+      // increment.addEventListener("click", function(){
+      //    const productIncrement = document.getElementById("iphoneValue");
+      //    const productCount = parseInt(productIncrement.value);
+      //    const productNewCount = productCount + 1;
+      //    productIncrement.value = productNewCount;
+      //    const productPriceIncrement = productNewCount * 1200;
+      //    document.getElementById("iphonePrice").innerText = productPriceIncrement;
+      // });
+
+      // function ProductIphone(incres){
+      //    const productIncrement = document.getElementById("iphoneValue");
+      //    const productCount = parseInt(productIncrement.value);
+      //    let productNewCount = productCount;
+      //    if(incres == true){
+      //       productNewCount = productCount + 1;
+      //    }
+      //    if(incres == false && productCount > 0){
+      //       productNewCount = productCount - 1;
+      //    }
+      //    productIncrement.value = productNewCount;
+      //    const productPriceIncrement = productNewCount * 1200;
+      //    document.getElementById("iphonePrice").innerText = productPriceIncrement;
+      // }
+
+      // function ProductCase(incres){
+      //    const productIncrement = document.getElementById("caseValue");
+      //    const productCount = parseInt(productIncrement.value);
+      //    let productNewCount = productCount;
+      //    if(incres == true){
+      //       productNewCount = productCount + 1;
+      //    }
+      //    if(incres == false && productCount > 0){
+      //       productNewCount = productCount - 1;
+      //    }
+      //    productIncrement.value = productNewCount;
+      //    const productPriceIncrement = productNewCount * 60;
+      //    document.getElementById("casePrice").innerText = productPriceIncrement;
+      // }
+      function Products(incres,product){
+         const productIncrement = document.getElementById(product + "Value");
+         const productCount = totalProducts(product);
+         let productNewCount = productCount;
+         if(incres == true){
+            productNewCount = productCount + 1;
+         }
+         if(incres == false && productCount > 0){
+            productNewCount = productCount - 1;
+         }
+         productIncrement.value = productNewCount;
+         //const productPriceIncrement = productNewCount * 1200;
+         let productPriceIncrement = productNewCount;
+         if (product == "iphone") {
+            productPriceIncrement = productNewCount * 1200;
+         }
+         if (product == "case") {
+            productPriceIncrement = productNewCount * 60;
+         }
+         document.getElementById(product + "Price").innerText = productPriceIncrement;
+         totalPrice();
+      }
+      function totalPrice(){
+         // const totalIphone = document.getElementById("iphoneValue");
+         // const totalCountIphone = parseInt(totalIphone.value);
+
+         // const totalCase = document.getElementById("caseValue");
+         // const totalCountCase = parseInt(totalCase.value);
+         const totalCountIphone = totalProducts("iphone")
+         const totalCountCase = totalProducts("case")
+
+         const totalPrice = totalCountIphone * 1200 + totalCountCase * 60;
+         const totals = document.getElementById("total").innerText = totalPrice;
+
+         const totalText = totalPrice * 0.1;
+         document.getElementById("totalText").innerText = totalText;
+
+         const grandTotal = totalPrice + totalText;
+         document.getElementById("grandTotal").innerText = grandTotal;
+
+      }
+      function totalProducts(product){
+         const totalIphone = document.getElementById(product + "Value");
+         const totalCountIphone = parseInt(totalIphone.value);
+         return totalCountIphone;
+      }
+   </script>
 </body>
 
 </html>
